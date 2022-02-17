@@ -27,12 +27,12 @@ export interface GuessStrategy {
 
 You bot will be able to only do two things: provide a guess for the next word and update some 
 internal state with the result of the guess. See `WordleGameSimulator` to see how your bot will
-be called to progress the game state (basically ask you bot for a guess, update your bot with 
+be called to progress the game state (basically ask your bot for a guess, update your bot with 
 the guess result, repeat if you did not guess the correct word).
 
 
 A good place to start is the abstract class
-`StatefulGuessStrategy`, which will automatically record the results of you guess into
+`StatefulGuessStrategy`, which will automatically record the results of your guess into
 a `State` object that your bot can use to make more intelligent guesses.
 
 For a list of all legal words that can be guessed, see `/resources/wordle-all-words.txt`
