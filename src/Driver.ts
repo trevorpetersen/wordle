@@ -3,7 +3,8 @@ const fs = require('fs');
 import { GuessStrategy } from "./strategies/GuessStrategy";
 import { SimulationResult } from "./models/SimulationResult";
 import { WordleGameSimulator } from "./WordleGameSimulator";
-import { ListGuessStrategy } from "./strategies/ListGuessStrategy";
+import { MinimumDifferenceGuessStrategy } from "./strategies/MinimumDifferenceGuessStrategy";
+import { SmallestAverageSetGuessStrategy } from "./strategies/SmallestAverageSetGuessStrategy";
 
 main();
 
@@ -13,10 +14,11 @@ function main() {
 
     const wordleGameSimulator: WordleGameSimulator = new WordleGameSimulator();
     // This bot just guesses the words that you give to it in order
-    const guessStrategy: GuessStrategy = new ListGuessStrategy(['crane', 'games', 'aroma']);
+    const minDiff: GuessStrategy = new MinimumDifferenceGuessStrategy(words);
 
     // Play the game wordle where the word to guess is "aroma" and guesses will be provided by an instance of ListGuessStrategy
-    const simulationResult: SimulationResult = wordleGameSimulator.simulate('aroma', guessStrategy, {maxNumGuesses: 20});
+    const minDiffResult: SimulationResult = wordleGameSimulator.simulate('float', minDiff, {maxNumGuesses: 20});
 
-    console.log(simulationResult);
+    console.log('===== RESULTS =====')
+    console.log(minDiffResult);
 }
