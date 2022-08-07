@@ -21,7 +21,6 @@ export class MinimumDifferenceGuessStrategy extends StatefulGuessStrategy {
 
         let i = 0;
         for(const word of this.words) {
-            console.log(`calling outcome ${++i}/${this.words.length}`)
             const outcome: Outcome = this.getOutcome(word);
 
             if (outcome.averageSize < bestOutcome.averageSize) {

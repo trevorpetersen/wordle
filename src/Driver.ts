@@ -4,7 +4,7 @@ import { GuessStrategy } from "./strategies/GuessStrategy";
 import { SimulationResult } from "./models/SimulationResult";
 import { WordleGameSimulator } from "./WordleGameSimulator";
 import { MinimumDifferenceGuessStrategy } from "./strategies/MinimumDifferenceGuessStrategy";
-import { SmallestAverageSetGuessStrategy } from "./strategies/SmallestAverageSetGuessStrategy";
+import { FirstGuessOverrideStrategy } from "./strategies/FirstGuessOverrideStrategy";
 
 main();
 
@@ -13,12 +13,14 @@ function main() {
     words = words.map(word => word.substring(0,5));    
 
     const wordleGameSimulator: WordleGameSimulator = new WordleGameSimulator();
-    // This bot just guesses the words that you give to it in order
-    const minDiff: GuessStrategy = new MinimumDifferenceGuessStrategy(words);
+    const guessStrategy: GuessStrategy = new MinimumDifferenceGuessStrategy(words);
+    // MinimumDifferenceGuessStrategy always guesses 'escar' first when used with this word list, 
+    // but it has to calculate it, which is time consuming. So here I just manually guess 'escar' first
+    const firstGuessOverrideStrategy: GuessStrategy = new FirstGuessOverrideStrategy('escar', guessStrategy);
 
-    // Play the game wordle where the word to guess is "aroma" and guesses will be provided by an instance of ListGuessStrategy
-    const minDiffResult: SimulationResult = wordleGameSimulator.simulate('float', minDiff, {maxNumGuesses: 20});
+    // first guess is always "escar"
+    const simulationResult: SimulationResult = wordleGameSimulator.simulate('alien', firstGuessOverrideStrategy, {maxNumGuesses: 20});
 
     console.log('===== RESULTS =====')
-    console.log(minDiffResult);
+    console.log(simulationResult);
 }
